@@ -2,9 +2,9 @@ import Vue from 'vue';
 import createAuth0Client from '@auth0/auth0-spa-js';
 
 /* wwEditor:start */
-export { GET_AUTH0_ROLES } from './graphql.js';
 import './components/SettingsEdit.vue';
 import './components/SettingsSummary.vue';
+import { GET_AUTH0_ROLES } from './graphql';
 /* wwEditor:end */
 
 export default {
@@ -47,7 +47,6 @@ export default {
         });
         return data.getAuth0Roles.data;
     },
-    async getRolesInternal() {},
     /*=============================================m_ÔÔ_m=============================================\
         Auth0 API
     \================================================================================================*/
