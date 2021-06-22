@@ -37,20 +37,17 @@ export default {
         Auth API
     \================================================================================================*/
     async getRoles(isNoCache = false) {
-        try {
-            const { data } = await wwLib.$apollo.query({
-                query: GET_AUTH0_ROLES,
-                variables: {
-                    designId: this.settings.designId,
-                    settingsId: this.settings.id,
-                },
-                fetchPolicy: isNoCache ? 'network-only' : 'cache-first',
-            });
-            return data.getAuth0Roles.data;
-        } catch (err) {
-            wwLib.wwLog.error(err);
-        }
+        const { data } = await wwLib.$apollo.query({
+            query: GET_AUTH0_ROLES,
+            variables: {
+                designId: this.settings.designId,
+                settingsId: this.settings.id,
+            },
+            fetchPolicy: isNoCache ? 'network-only' : 'cache-first',
+        });
+        return data.getAuth0Roles.data;
     },
+    async getRolesInternal() {},
     /*=============================================m_ÔÔ_m=============================================\
         Auth0 API
     \================================================================================================*/

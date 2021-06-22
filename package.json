@@ -11,8 +11,7 @@
         "serve": "weweb serve"
     },
     "dependencies": {
-        "@auth0/auth0-spa-js": "^8.6.7",
-        "auth0": "^2.35.1",
+        "@auth0/auth0-spa-js": "^1.15.0",
         "graphql": "^15.5.0",
         "graphql-tag": "^2.11.0"
     },
