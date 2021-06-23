@@ -14,11 +14,20 @@ export default {
     async onLoad() {
         Vue.prototype.$auth = this;
         Vue.prototype.$pluginAuth0 = this;
-        const { domain, clientId: client_id } = this.settings.publicData;
-        this.client = await createAuth0Client({ domain, client_id, redirect_uri: window.location.origin });
 
+        await this.createClient();
+        await this.checkRedirectCallback();
+        await this.checkIsAuthenticated();
+    },
+    async createClient() {
+        const { domain, clientId: client_id } = this.settings.publicData;
+        this.client = await createAuth0Client({ domain, client_id, redirect_uri: window.location.href });
+    },
+    async checkRedirectCallback() {
         try {
-            const { code, state } = this.$route.query;
+            const { code, state } = wwLib.manager
+                ? wwLib.getManagerRouter().currentRoute.query
+                : wwLib.getFrontRouter().currentRoute.query;
             if (code && state) {
                 const { appState } = await this.client.handleRedirectCallback();
                 this.onRedirectCallback(appState);
@@ -26,12 +35,12 @@ export default {
         } catch (err) {
             this.error = err;
             wwLib.wwLog.error(err);
-        } finally {
-            // Initialize our internal authentication state
-            this.isAuthenticated = await this.client.isAuthenticated();
-            this.user = await this.client.getUser();
-            this.loading = false;
         }
+    },
+    async checkIsAuthenticated() {
+        this.isAuthenticated = await this.client.isAuthenticated();
+        this.user = await this.client.getUser();
+        this.loading = false;
     },
     /*=============================================m_ÔÔ_m=============================================\
         Auth API
@@ -45,7 +54,7 @@ export default {
             },
             fetchPolicy: isNoCache ? 'network-only' : 'cache-first',
         });
-        return data.getAuth0Roles.data;
+        return data.getAuth0Roles.data.map(role => ({ label: role.description, value: role.id }));
     },
     /*=============================================m_ÔÔ_m=============================================\
         Auth0 API
