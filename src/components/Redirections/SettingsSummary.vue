@@ -2,14 +2,18 @@
     <div class="auth0-settings-summary" v-if="isValid">
         <wwEditorFormRow label="Page to redirect after the user signed-in">
             <div class="auth0-settings-summary__elem">
-                <wwEditorIcon large name="document" class="auth0-settings-summary__icon"></wwEditorIcon>
-                <span class="caption-m">{{ getPageFromId(this.settings.publicData.afterSignInPageId).name }}</span>
+                <div><wwEditorIcon large name="document" class="auth0-settings-summary__icon" /></div>
+                <span class="auth0-settings-summary__value caption-m">
+                    {{ getPageFromId(this.settings.publicData.afterSignInPageId).name }}
+                </span>
             </div>
         </wwEditorFormRow>
         <wwEditorFormRow label="Page to redirect when user is not signed-in">
             <div class="auth0-settings-summary__elem">
-                <wwEditorIcon large name="document" class="auth0-settings-summary__icon"></wwEditorIcon>
-                <span class="caption-m">{{ getPageFromId(this.settings.publicData.afterNotSignInPageId).name }}</span>
+                <div><wwEditorIcon large name="document" class="auth0-settings-summary__icon" /></div>
+                <span class="auth0-settings-summary__value caption-m">
+                    {{ getPageFromId(this.settings.publicData.afterNotSignInPageId).name }}
+                </span>
             </div>
         </wwEditorFormRow>
     </div>
@@ -57,6 +61,10 @@ export default {
     }
     &__icon {
         margin-right: var(--ww-spacing-02);
+    }
+    &__value {
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 }
 </style>

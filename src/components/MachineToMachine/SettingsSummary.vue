@@ -1,12 +1,14 @@
 <template>
     <div class="auth0-settings-summary" v-if="isValid">
         <div class="auth0-settings-summary__elem">
-            <wwEditorIcon large name="direction" class="auth0-settings-summary__icon"></wwEditorIcon>
-            <span class="caption-m">{{ this.settings.publicData.M2MClientId }}</span>
+            <div><wwEditorIcon large name="direction" class="auth0-settings-summary__icon" /></div>
+            <span class="auth0-settings-summary__value caption-m">{{ this.settings.publicData.M2MClientId }}</span>
         </div>
         <div class="auth0-settings-summary__elem">
-            <wwEditorIcon large name="key" class="auth0-settings-summary__icon"></wwEditorIcon>
-            <span class="caption-m">{{ this.settings.privateData.M2MClientSecret.replace(/./g, '*') }}</span>
+            <div><wwEditorIcon large name="key" class="auth0-settings-summary__icon" /></div>
+            <span class="auth0-settings-summary__value caption-m">
+                {{ this.settings.privateData.M2MClientSecret.replace(/./g, '*') }}
+            </span>
         </div>
     </div>
 </template>
@@ -46,6 +48,10 @@ export default {
     }
     &__icon {
         margin-right: var(--ww-spacing-02);
+    }
+    &__value {
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 }
 </style>

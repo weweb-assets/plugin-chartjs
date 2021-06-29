@@ -6,16 +6,18 @@
             target="_blank"
             @click.stop
         >
-            <wwEditorIcon large name="link" class="auth0-settings-summary__icon"></wwEditorIcon>
-            <span class="caption-m">{{ this.settings.publicData.domain }}</span>
+            <div><wwEditorIcon large name="link" class="auth0-settings-summary__icon" /></div>
+            <span class="auth0-settings-summary__value caption-m">{{ this.settings.publicData.domain }}</span>
         </a>
         <div class="auth0-settings-summary__elem">
-            <wwEditorIcon large name="direction" class="auth0-settings-summary__icon"></wwEditorIcon>
-            <span class="caption-m">{{ this.settings.publicData.SPAClientId }}</span>
+            <div><wwEditorIcon large name="direction" class="auth0-settings-summary__icon" /></div>
+            <span class="auth0-settings-summary__value caption-m">{{ this.settings.publicData.SPAClientId }}</span>
         </div>
         <div class="auth0-settings-summary__elem">
-            <wwEditorIcon large name="key" class="auth0-settings-summary__icon"></wwEditorIcon>
-            <span class="caption-m">{{ this.settings.privateData.SPAClientSecret.replace(/./g, '*') }}</span>
+            <div><wwEditorIcon large name="key" class="auth0-settings-summary__icon" /></div>
+            <span class="auth0-settings-summary__value caption-m">
+                {{ this.settings.privateData.SPAClientSecret.replace(/./g, '*') }}
+            </span>
         </div>
     </div>
 </template>
@@ -55,6 +57,10 @@ export default {
     }
     &__icon {
         margin-right: var(--ww-spacing-02);
+    }
+    &__value {
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 }
 </style>
