@@ -19,9 +19,9 @@ export default {
         Vue.prototype.$auth = this;
         Vue.prototype.$pluginAuth0 = this;
 
-        // await this.createClient();
-        // await this.checkRedirectCallback();
-        // await this.checkIsAuthenticated();
+        await this.createClient();
+        await this.checkRedirectCallback();
+        await this.checkIsAuthenticated();
     },
     async createClient() {
         const { domain, clientId: client_id } = this.settings.publicData;
