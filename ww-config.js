@@ -1,10 +1,26 @@
 module.exports = {
     componentPath: './src/index.js',
     editor: {
-        settings: {
-            edit: () => import('./src/components/SettingsEdit.vue'),
-            summary: () => import('./src/components/SettingsSummary.vue'),
-        },
+        settings: [
+            {
+                label: '1. Set-up Single Page Application',
+                icon: 'advanced',
+                edit: () => import('./src/components/SinglePageApp/SettingsEdit.vue'),
+                summary: () => import('./src/components/SinglePageApp/SettingsSummary.vue'),
+            },
+            {
+                label: '2. Set-up Machine to Machine Application',
+                icon: 'advanced',
+                edit: () => import('./src/components/MachineToMachine/SettingsEdit.vue'),
+                summary: () => import('./src/components/MachineToMachine/SettingsSummary.vue'),
+            },
+            {
+                label: '3. Define rediretions (URLs)',
+                icon: 'open-out',
+                edit: () => import('./src/components/Redirections/SettingsEdit.vue'),
+                summary: () => import('./src/components/Redirections/SettingsSummary.vue'),
+            },
+        ],
         designSystemId: '33059de9-35aa-4cd8-80b6-ad59d464dc45',
     },
 };

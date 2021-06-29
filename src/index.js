@@ -2,8 +2,12 @@ import Vue from 'vue';
 import createAuth0Client from '@auth0/auth0-spa-js';
 
 /* wwEditor:start */
-import './components/SettingsEdit.vue';
-import './components/SettingsSummary.vue';
+import './components/MachineToMachine/SettingsEdit.vue';
+import './components/MachineToMachine/SettingsSummary.vue';
+import './components/Redirections/SettingsEdit.vue';
+import './components/Redirections/SettingsSummary.vue';
+import './components/SinglePageApp/SettingsEdit.vue';
+import './components/SinglePageApp/SettingsSummary.vue';
 import { GET_AUTH0_ROLES } from './graphql';
 /* wwEditor:end */
 
@@ -15,9 +19,9 @@ export default {
         Vue.prototype.$auth = this;
         Vue.prototype.$pluginAuth0 = this;
 
-        await this.createClient();
-        await this.checkRedirectCallback();
-        await this.checkIsAuthenticated();
+        // await this.createClient();
+        // await this.checkRedirectCallback();
+        // await this.checkIsAuthenticated();
     },
     async createClient() {
         const { domain, clientId: client_id } = this.settings.publicData;
@@ -45,6 +49,7 @@ export default {
     /*=============================================m_ÔÔ_m=============================================\
         Auth API
     \================================================================================================*/
+    /* wwEditor:start */
     async getRoles(isNoCache = false) {
         const { data } = await wwLib.$apollo.query({
             query: GET_AUTH0_ROLES,
@@ -56,10 +61,10 @@ export default {
         });
         return data.getAuth0Roles.data.map(role => ({ label: role.description, value: role.id }));
     },
+    /* wwEditor:end */
     /*=============================================m_ÔÔ_m=============================================\
         Auth0 API
     \================================================================================================*/
-    management: null,
     client: null,
     user: null,
     isAuthenticated: false,

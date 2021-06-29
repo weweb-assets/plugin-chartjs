@@ -2,26 +2,35 @@
     <div class="auth0-settings-edit">
         <wwEditorFormRow required label="Domain">
             <template slot="append-label">
-                <a class="auth0-settings-edit__link" href="https://manage.auth0.com/dashboard" target="_blank">
+                <a class="auth0-settings-edit__link" href="https://manage.auth0.com/#/applications" target="_blank">
                     Find it here
                 </a>
             </template>
             <wwEditorFormInput
                 type="text"
                 name="domain"
-                placeholder="project.auth0.com"
+                placeholder="project-name.auth0.com"
                 :value="settings.publicData.domain"
                 @input="changePublicSettings('domain', $event)"
                 large
             />
         </wwEditorFormRow>
         <wwEditorFormRow required label="Client ID">
+            <template slot="append-label">
+                <a
+                    class="auth0-settings-edit__link"
+                    href="https://auth0.com/docs/get-started/create-apps/single-page-web-apps"
+                    target="_blank"
+                >
+                    Find it here
+                </a>
+            </template>
             <wwEditorFormInput
                 type="text"
                 name="client-id"
                 placeholder=""
-                :value="settings.publicData.clientId"
-                @input="changePublicSettings('clientId', $event)"
+                :value="settings.publicData.SPAClientId"
+                @input="changePublicSettings('SPAClientId', $event)"
                 large
             />
         </wwEditorFormRow>
@@ -30,15 +39,15 @@
                 type="text"
                 placeholder="**************"
                 name="client Secret"
-                :value="settings.privateData.clientSecret"
-                @input="changePrivateSettings('clientSecret', $event)"
+                :value="settings.privateData.SPAClientSecret"
+                @input="changePrivateSettings('SPAClientSecret', $event)"
                 :style="{ '-webkit-text-security': isKeyHidden ? 'disc' : 'none' }"
                 large
             />
         </wwEditorFormRow>
-        <div class="airtable-settings-edit__row">
+        <div class="auth0-settings-edit__row">
             <wwManagerRadio :value="!isKeyHidden" @input="isKeyHidden = !$event" />
-            <span class="airtable-settings-edit__radio-label caption-m">Show client secret</span>
+            <span class="auth0-settings-edit__radio-label caption-m">Show client secret</span>
         </div>
     </div>
 </template>
@@ -64,9 +73,9 @@ export default {
     },
     computed: {
         isValid() {
-            const { domain, clientId } = this.settings.publicData;
-            const { clientSecret } = this.settings.privateData;
-            return !!domain && !!clientId && !!clientSecret;
+            const { domain, SPAClientId } = this.settings.publicData;
+            const { SPAClientSecret } = this.settings.privateData;
+            return !!domain && !!SPAClientSecret && !!SPAClientId;
         },
     },
     methods: {

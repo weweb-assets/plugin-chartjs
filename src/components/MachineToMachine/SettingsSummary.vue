@@ -1,21 +1,12 @@
 <template>
     <div class="auth0-settings-summary" v-if="isValid">
-        <a
-            class="auth0-settings-summary__elem"
-            :href="`https://manage.auth0.com/dashboard`"
-            target="_blank"
-            @click.stop
-        >
-            <wwEditorIcon large name="link" class="auth0-settings-summary__icon"></wwEditorIcon>
-            <span class="caption-m">{{ this.settings.publicData.domain }}</span>
-        </a>
         <div class="auth0-settings-summary__elem">
-            <wwEditorIcon large name="key" class="auth0-settings-summary__icon"></wwEditorIcon>
-            <span class="caption-m">{{ this.settings.publicData.clientId }}</span>
+            <wwEditorIcon large name="direction" class="auth0-settings-summary__icon"></wwEditorIcon>
+            <span class="caption-m">{{ this.settings.publicData.M2MClientId }}</span>
         </div>
         <div class="auth0-settings-summary__elem">
             <wwEditorIcon large name="key" class="auth0-settings-summary__icon"></wwEditorIcon>
-            <span class="caption-m">{{ this.settings.privateData.clientSecret }}</span>
+            <span class="caption-m">{{ this.settings.privateData.M2MClientSecret.replace(/./g, '*') }}</span>
         </div>
     </div>
 </template>
@@ -28,9 +19,9 @@ export default {
     },
     computed: {
         isValid() {
-            const { domain, clientId } = this.settings.publicData;
-            const { clientSecret } = this.settings.privateData;
-            return !!domain && !!clientId && !!clientSecret;
+            const { domain, M2MClientId } = this.settings.publicData;
+            const { M2MClientSecret } = this.settings.privateData;
+            return !!domain && !!M2MClientId && !!M2MClientSecret;
         },
     },
     watch: {
