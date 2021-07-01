@@ -25,7 +25,7 @@ export default {
     },
     async createClient() {
         const { domain, SPAClientId: client_id } = this.settings.publicData;
-        this.client = await createAuth0Client({ domain, client_id, redirect_uri: window.location.href });
+        this.client = await createAuth0Client({ domain, client_id, redirect_uri: window.location.host });
     },
     async checkRedirectCallback() {
         try {
