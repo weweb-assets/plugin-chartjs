@@ -24,8 +24,14 @@ export default {
         await this.checkIsAuthenticated();
     },
     async createClient() {
-        const { domain, SPAClientId: client_id } = this.settings.publicData;
-        this.client = await createAuth0Client({ domain, client_id, redirect_uri: window.location.host });
+        const { domain, SPAClientId: client_id, afterSignInPageId } = this.settings.publicData;
+
+        const page = wwLib.wwWebsiteData.getPages().find(page => page.id === afterSignInPageId);
+        const redirect_uri = page
+            ? `https://${window.location.host}/${page.paths[wwLib.wwLang.lang] || page.paths.default}`
+            : `https://${window.location.host}`;
+
+        this.client = await createAuth0Client({ domain, client_id, redirect_uri });
     },
     async checkRedirectCallback() {
         try {
