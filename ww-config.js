@@ -3,19 +3,19 @@ module.exports = {
     editor: {
         settings: [
             {
-                label: '1. Set-up Single Page Application',
+                label: 'Set-up Single Page Application',
                 icon: 'advanced',
                 edit: () => import('./src/components/SinglePageApp/SettingsEdit.vue'),
                 summary: () => import('./src/components/SinglePageApp/SettingsSummary.vue'),
             },
             {
-                label: '2. Set-up Machine to Machine Application',
+                label: 'Set-up Machine to Machine Application',
                 icon: 'advanced',
                 edit: () => import('./src/components/MachineToMachine/SettingsEdit.vue'),
                 summary: () => import('./src/components/MachineToMachine/SettingsSummary.vue'),
             },
             {
-                label: '3. Define rediretions (URLs)',
+                label: 'Define rediretions (URLs)',
                 icon: 'open-out',
                 edit: () => import('./src/components/Redirections/SettingsEdit.vue'),
                 summary: () => import('./src/components/Redirections/SettingsSummary.vue'),
