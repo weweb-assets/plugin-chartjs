@@ -28,8 +28,8 @@ export default {
 
         const page = wwLib.wwWebsiteData.getPages().find(page => page.id === afterSignInPageId);
         const redirect_uri = page
-            ? `https://${window.location.host}/${page.paths[wwLib.wwLang.lang] || page.paths.default}`
-            : `https://${window.location.host}`;
+            ? `${window.location.origin}/${page.paths[wwLib.wwLang.lang] || page.paths.default}`
+            : window.location.origin;
 
         this.client = await createAuth0Client({ domain, client_id, redirect_uri });
     },
