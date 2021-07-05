@@ -21,6 +21,6 @@ module.exports = {
                 summary: () => import('./src/components/Redirections/SettingsSummary.vue'),
             },
         ],
-        designSystemId: '33059de9-35aa-4cd8-80b6-ad59d464dc45',
+        designSystemId: '4978681d-6d09-49c7-bdaa-6a6d1e2ce180',
     },
 };
