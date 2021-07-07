@@ -1,6 +1,4 @@
-import Vue from 'vue';
 import createAuth0Client from '@auth0/auth0-spa-js';
-
 /* wwEditor:start */
 import './components/MachineToMachine/SettingsEdit.vue';
 import './components/MachineToMachine/SettingsSummary.vue';
@@ -16,9 +14,6 @@ export default {
         Plugin API
     \================================================================================================*/
     async onLoad() {
-        Vue.prototype.$auth = this;
-        Vue.prototype.$pluginAuth0 = this;
-
         await this.createClient();
         await this.checkRedirectCallback();
         await this.checkIsAuthenticated();
