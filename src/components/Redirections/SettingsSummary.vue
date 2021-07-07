@@ -1,10 +1,10 @@
 <template>
-    <div class="auth0-settings-summary" v-if="isValid">
+    <div class="auth0-settings-summary">
         <wwEditorFormRow label="Page to redirect after the user signed-in">
             <div class="auth0-settings-summary__elem">
                 <div><wwEditorIcon large name="document" class="auth0-settings-summary__icon" /></div>
                 <span class="auth0-settings-summary__value caption-m">
-                    {{ getPageFromId(this.settings.publicData.afterSignInPageId).name }}
+                    {{ getPageFromId(settings.publicData.afterSignInPageId).name }}
                 </span>
             </div>
         </wwEditorFormRow>
@@ -12,7 +12,7 @@
             <div class="auth0-settings-summary__elem">
                 <div><wwEditorIcon large name="document" class="auth0-settings-summary__icon" /></div>
                 <span class="auth0-settings-summary__value caption-m">
-                    {{ getPageFromId(this.settings.publicData.afterNotSignInPageId).name }}
+                    {{ getPageFromId(settings.publicData.afterNotSignInPageId).name }}
                 </span>
             </div>
         </wwEditorFormRow>
@@ -22,24 +22,11 @@
 <script>
 export default {
     props: {
-        plugin: { type: Object, required: true },
         settings: { type: Object, required: true },
     },
     computed: {
-        isValid() {
-            const { afterSignInPageId, afterNotSignInPageId } = this.settings.publicData;
-            return !!afterSignInPageId && !!afterNotSignInPageId;
-        },
         pages() {
             return wwLib.wwWebsiteData.getPages();
-        },
-    },
-    watch: {
-        isValid: {
-            immediate: true,
-            handler(value) {
-                this.$emit('update-is-valid', value);
-            },
         },
     },
     methods: {

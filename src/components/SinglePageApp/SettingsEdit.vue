@@ -1,7 +1,7 @@
 <template>
     <div class="auth0-settings-edit">
         <wwEditorFormRow required label="Domain">
-            <template slot="append-label">
+            <template #append-label>
                 <a class="auth0-settings-edit__link" href="https://manage.auth0.com/#/applications" target="_blank">
                     Find it here
                 </a>
@@ -10,13 +10,13 @@
                 type="text"
                 name="domain"
                 placeholder="project-name.auth0.com"
-                :value="settings.publicData.domain"
-                @input="changePublicSettings('domain', $event)"
+                :model-value="settings.publicData.domain"
                 large
+                @update:modelValue="changePublicSettings('domain', $event)"
             />
         </wwEditorFormRow>
         <wwEditorFormRow required label="Client ID">
-            <template slot="append-label">
+            <template #append-label>
                 <a
                     class="auth0-settings-edit__link"
                     href="https://auth0.com/docs/get-started/create-apps/single-page-web-apps"
@@ -29,9 +29,9 @@
                 type="text"
                 name="client-id"
                 placeholder=""
-                :value="settings.publicData.SPAClientId"
-                @input="changePublicSettings('SPAClientId', $event)"
+                :model-value="settings.publicData.SPAClientId"
                 large
+                @update:modelValue="changePublicSettings('SPAClientId', $event)"
             />
         </wwEditorFormRow>
         <wwEditorFormRow required label="Client Secret">
@@ -39,14 +39,14 @@
                 type="text"
                 placeholder="**************"
                 name="client Secret"
-                :value="settings.privateData.SPAClientSecret"
-                @input="changePrivateSettings('SPAClientSecret', $event)"
-                :style="{ '-webkit-text-security': isKeyHidden ? 'disc' : 'none' }"
+                :model-value="settings.privateData.SPAClientSecret"
+                :style="{ '-webkit-text-security': isKeyVisible ? 'none' : 'disc' }"
                 large
+                @update:modelValue="changePrivateSettings('SPAClientSecret', $event)"
             />
         </wwEditorFormRow>
         <div class="auth0-settings-edit__row">
-            <wwManagerRadio :value="!isKeyHidden" @input="isKeyHidden = !$event" />
+            <wwManagerRadio v-model:isKeyVisible="isKeyVisible" />
             <span class="auth0-settings-edit__radio-label caption-m">Show client secret</span>
         </div>
     </div>
@@ -55,38 +55,23 @@
 <script>
 export default {
     props: {
-        plugin: { type: Object, required: true },
         settings: { type: Object, required: true },
     },
+    emits: ['update:settings'],
     data() {
         return {
-            isKeyHidden: true,
+            isKeyVisible: false,
         };
-    },
-    watch: {
-        isValid: {
-            immediate: true,
-            handler(value) {
-                this.$emit('update-is-valid', value);
-            },
-        },
-    },
-    computed: {
-        isValid() {
-            const { domain, SPAClientId } = this.settings.publicData;
-            const { SPAClientSecret } = this.settings.privateData;
-            return !!domain && !!SPAClientSecret && !!SPAClientId;
-        },
     },
     methods: {
         changePublicSettings(key, value) {
-            this.$emit('update-settings', {
+            this.$emit('update:settings', {
                 ...this.settings,
                 publicData: { ...this.settings.publicData, [key]: value },
             });
         },
         changePrivateSettings(key, value) {
-            this.$emit('update-settings', {
+            this.$emit('update:settings', {
                 ...this.settings,
                 privateData: { ...this.settings.privateData, [key]: value },
             });

@@ -4,20 +4,20 @@
             <wwEditorSelect
                 name="after-sign-in-page-id"
                 :options="pagesOptions"
-                :value="settings.publicData.afterSignInPageId"
-                @input="changePublicSettings('afterSignInPageId', $event)"
+                :model-value="settings.publicData.afterSignInPageId"
                 placeholder="Select a page"
                 large
+                @update:modelValue="changePublicSettings('afterSignInPageId', $event)"
             />
         </wwEditorFormRow>
         <wwEditorFormRow required label="Page to redirect when user is not signed-in">
             <wwEditorSelect
                 name="after-not-sign-in-page-id"
                 :options="pagesOptions"
-                :value="settings.publicData.afterNotSignInPageId"
-                @input="changePublicSettings('afterNotSignInPageId', $event)"
+                :model-value="settings.publicData.afterNotSignInPageId"
                 placeholder="Select a page"
                 large
+                @update:modelValue="changePublicSettings('afterNotSignInPageId', $event)"
             />
         </wwEditorFormRow>
     </div>
@@ -26,32 +26,17 @@
 <script>
 export default {
     props: {
-        plugin: { type: Object, required: true },
         settings: { type: Object, required: true },
     },
-    data() {
-        return {};
-    },
-    watch: {
-        isValid: {
-            immediate: true,
-            handler(value) {
-                this.$emit('update-is-valid', value);
-            },
-        },
-    },
+    emits: ['update:settings'],
     computed: {
-        isValid() {
-            const { afterSignInPageId, afterNotSignInPageId } = this.settings.publicData;
-            return !!afterSignInPageId && !!afterNotSignInPageId;
-        },
         pagesOptions() {
             return wwLib.wwWebsiteData.getPages().map(page => ({ label: page.name, value: page.id }));
         },
     },
     methods: {
         changePublicSettings(key, value) {
-            this.$emit('update-settings', {
+            this.$emit('update:settings', {
                 ...this.settings,
                 publicData: { ...this.settings.publicData, [key]: value },
             });

@@ -1,7 +1,7 @@
 <template>
     <div class="auth0-settings-edit">
         <wwEditorFormRow required label="Client ID">
-            <template slot="append-label">
+            <template #append-label>
                 <a
                     class="auth0-settings-edit__link"
                     href="https://auth0.com/docs/get-started/create-apps/machine-to-machine-apps"
@@ -14,9 +14,9 @@
                 type="text"
                 name="client-id"
                 placeholder=""
-                :value="settings.publicData.M2MClientId"
-                @input="changePublicSettings('M2MClientId', $event)"
+                :model-value="settings.publicData.M2MClientId"
                 large
+                @update:modelValue="changePublicSettings('M2MClientId', $event)"
             />
         </wwEditorFormRow>
         <wwEditorFormRow required label="Client Secret">
@@ -24,14 +24,14 @@
                 type="text"
                 placeholder="**************"
                 name="client Secret"
-                :value="settings.privateData.M2MClientSecret"
-                @input="changePrivateSettings('M2MClientSecret', $event)"
-                :style="{ '-webkit-text-security': isKeyHidden ? 'disc' : 'none' }"
+                :model-value="settings.privateData.M2MClientSecret"
+                :style="{ '-webkit-text-security': isKeyVisible ? 'none' : 'disc' }"
                 large
+                @update:modelValue="changePrivateSettings('M2MClientSecret', $event)"
             />
         </wwEditorFormRow>
         <div class="auth0-settings-edit__row">
-            <wwManagerRadio :value="!isKeyHidden" @input="isKeyHidden = !$event" />
+            <wwManagerRadio v-model:isKeyVisible="isKeyVisible" />
             <span class="auth0-settings-edit__radio-label caption-m">Show client secret</span>
         </div>
     </div>
@@ -40,38 +40,23 @@
 <script>
 export default {
     props: {
-        plugin: { type: Object, required: true },
         settings: { type: Object, required: true },
     },
+    emits: ['update:settings'],
     data() {
         return {
-            isKeyHidden: true,
+            isKeyVisible: false,
         };
-    },
-    watch: {
-        isValid: {
-            immediate: true,
-            handler(value) {
-                this.$emit('update-is-valid', value);
-            },
-        },
-    },
-    computed: {
-        isValid() {
-            const { domain, M2MClientId } = this.settings.publicData;
-            const { M2MClientSecret } = this.settings.privateData;
-            return !!domain && !!M2MClientSecret && !!M2MClientId;
-        },
     },
     methods: {
         changePublicSettings(key, value) {
-            this.$emit('update-settings', {
+            this.$emit('update:settings', {
                 ...this.settings,
                 publicData: { ...this.settings.publicData, [key]: value },
             });
         },
         changePrivateSettings(key, value) {
-            this.$emit('update-settings', {
+            this.$emit('update:settings', {
                 ...this.settings,
                 privateData: { ...this.settings.privateData, [key]: value },
             });

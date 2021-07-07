@@ -1,13 +1,13 @@
 <template>
-    <div class="auth0-settings-summary" v-if="isValid">
+    <div class="auth0-settings-summary">
         <div class="auth0-settings-summary__elem">
             <div><wwEditorIcon large name="direction" class="auth0-settings-summary__icon" /></div>
-            <span class="auth0-settings-summary__value caption-m">{{ this.settings.publicData.M2MClientId }}</span>
+            <span class="auth0-settings-summary__value caption-m">{{ settings.publicData.M2MClientId }}</span>
         </div>
         <div class="auth0-settings-summary__elem">
             <div><wwEditorIcon large name="key" class="auth0-settings-summary__icon" /></div>
             <span class="auth0-settings-summary__value caption-m">
-                {{ this.settings.privateData.M2MClientSecret.replace(/./g, '*') }}
+                {{ M2MClientSecret }}
             </span>
         </div>
     </div>
@@ -16,22 +16,12 @@
 <script>
 export default {
     props: {
-        plugin: { type: Object, required: true },
         settings: { type: Object, required: true },
     },
     computed: {
-        isValid() {
-            const { domain, M2MClientId } = this.settings.publicData;
-            const { M2MClientSecret } = this.settings.privateData;
-            return !!domain && !!M2MClientId && !!M2MClientSecret;
-        },
-    },
-    watch: {
-        isValid: {
-            immediate: true,
-            handler(value) {
-                this.$emit('update-is-valid', value);
-            },
+        M2MClientSecret() {
+            const clientSecret = this.settings.privateData.M2MClientSecret || '';
+            return clientSecret.replace(/./g, '*');
         },
     },
 };

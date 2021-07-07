@@ -1,5 +1,5 @@
 <template>
-    <div class="auth0-settings-summary" v-if="isValid">
+    <div class="auth0-settings-summary">
         <a
             class="ww-editor-link auth0-settings-summary__elem"
             :href="`https://manage.auth0.com/dashboard`"
@@ -7,16 +7,16 @@
             @click.stop
         >
             <div><wwEditorIcon large name="link" class="auth0-settings-summary__icon" /></div>
-            <span class="auth0-settings-summary__value caption-m">{{ this.settings.publicData.domain }}</span>
+            <span class="auth0-settings-summary__value caption-m">{{ settings.publicData.domain }}</span>
         </a>
         <div class="auth0-settings-summary__elem">
             <div><wwEditorIcon large name="direction" class="auth0-settings-summary__icon" /></div>
-            <span class="auth0-settings-summary__value caption-m">{{ this.settings.publicData.SPAClientId }}</span>
+            <span class="auth0-settings-summary__value caption-m">{{ settings.publicData.SPAClientId }}</span>
         </div>
         <div class="auth0-settings-summary__elem">
             <div><wwEditorIcon large name="key" class="auth0-settings-summary__icon" /></div>
             <span class="auth0-settings-summary__value caption-m">
-                {{ this.settings.privateData.SPAClientSecret.replace(/./g, '*') }}
+                {{ SPAClientSecret }}
             </span>
         </div>
     </div>
@@ -25,22 +25,12 @@
 <script>
 export default {
     props: {
-        plugin: { type: Object, required: true },
         settings: { type: Object, required: true },
     },
     computed: {
-        isValid() {
-            const { domain, SPAClientId } = this.settings.publicData;
-            const { SPAClientSecret } = this.settings.privateData;
-            return !!domain && !!SPAClientId && !!SPAClientSecret;
-        },
-    },
-    watch: {
-        isValid: {
-            immediate: true,
-            handler(value) {
-                this.$emit('update-is-valid', value);
-            },
+        SPAClientSecret() {
+            const clientSecret = this.settings.privateData.SPAClientSecret || '';
+            return clientSecret.replace(/./g, '*');
         },
     },
 };
