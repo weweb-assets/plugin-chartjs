@@ -31,7 +31,7 @@ export default {
     async checkRedirectCallback() {
         try {
             const { code, state } = wwLib.manager
-                ? wwLib.getManagerRouter().currentRoute.query
+                ? wwLib.getEditorRouter().currentRoute.query
                 : wwLib.getFrontRouter().currentRoute.query;
             if (code && state) {
                 const { appState } = await this.client.handleRedirectCallback();
