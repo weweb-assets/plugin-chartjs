@@ -1,4 +1,5 @@
 import createAuth0Client from '@auth0/auth0-spa-js';
+
 /* wwEditor:start */
 import './components/MachineToMachine/SettingsEdit.vue';
 import './components/MachineToMachine/SettingsSummary.vue';
@@ -15,37 +16,9 @@ export default {
     \================================================================================================*/
     async onLoad() {
         await this.createClient();
+        if (!this.client) return;
         await this.checkRedirectCallback();
         await this.checkIsAuthenticated();
-    },
-    async createClient() {
-        const { domain, SPAClientId: client_id, afterSignInPageId } = this.settings.publicData;
-
-        const page = wwLib.wwWebsiteData.getPages().find(page => page.id === afterSignInPageId);
-        const redirect_uri = page
-            ? `${window.location.origin}/${page.paths[wwLib.wwLang.lang] || page.paths.default}`
-            : window.location.origin;
-
-        this.client = await createAuth0Client({ domain, client_id, redirect_uri });
-    },
-    async checkRedirectCallback() {
-        try {
-            const { code, state } = wwLib.manager
-                ? wwLib.getEditorRouter().currentRoute.value.query
-                : wwLib.getFrontRouter().currentRoute.value.query;
-            if (code && state) {
-                const { appState } = await this.client.handleRedirectCallback();
-                this.onRedirectCallback(appState);
-            }
-        } catch (err) {
-            this.error = err;
-            wwLib.wwLog.error(err);
-        }
-    },
-    async checkIsAuthenticated() {
-        this.isAuthenticated = await this.client.isAuthenticated();
-        this.user = await this.client.getUser();
-        this.loading = false;
     },
     /*=============================================m_ÔÔ_m=============================================\
         Auth API
@@ -69,52 +42,56 @@ export default {
     client: null,
     user: null,
     isAuthenticated: false,
-    loading: false,
-    popupOpen: false,
-    /** Authenticates the user using a popup window */
+    async createClient() {
+        const { domain, SPAClientId: client_id, afterSignInPageId } = this.settings.publicData;
+        if (!domain || !client_id) return;
+
+        const page = wwLib.wwWebsiteData.getPages().find(page => page.id === afterSignInPageId);
+        const redirect_uri = page
+            ? `${window.location.origin}/${page.paths[wwLib.wwLang.lang] || page.paths.default}`
+            : window.location.origin;
+
+        this.client = await createAuth0Client({ domain, client_id, redirect_uri });
+    },
+    async checkRedirectCallback() {
+        try {
+            const { code, state } = wwLib.manager
+                ? wwLib.getEditorRouter().currentRoute.value.query
+                : wwLib.getFrontRouter().currentRoute.value.query;
+            if (code && state) {
+                await this.client.handleRedirectCallback();
+                await this.setCookieSession();
+            }
+        } catch (err) {
+            wwLib.wwLog.error(err);
+        }
+    },
+    async checkIsAuthenticated() {
+        this.isAuthenticated = await this.client.isAuthenticated();
+        this.user = await this.client.getUser();
+    },
     async loginWithPopup(options, config) {
-        this.popupOpen = true;
         try {
             await this.client.loginWithPopup(options, config);
+            await this.setCookieSession();
+            this.redirectAfterSignIn();
         } catch (err) {
             wwLib.wwLog.error(err);
         } finally {
-            this.popupOpen = false;
-            this.user = await this.client.getUser();
-            this.isAuthenticated = await this.client.isAuthenticated();
+            this.checkIsAuthenticated();
         }
     },
-    /** Handles the callback when logging in using a redirect */
-    async handleRedirectCallback() {
-        this.loading = true;
-        try {
-            await this.client.handleRedirectCallback();
-        } catch (err) {
-            wwLib.wwLog.error(err);
-        } finally {
-            this.user = await this.client.getUser();
-            this.isAuthenticated = true;
-            this.loading = false;
-        }
-    },
-    /** Authenticates the user using the redirect method */
     loginWithRedirect(o) {
         return this.client.loginWithRedirect(o);
     },
-    /** Returns all the claims present in the ID token */
-    getIdTokenClaims(o) {
-        return this.client.getIdTokenClaims(o);
-    },
-    /** Returns the access token. If the token is invalid or missing, a new one is retrieved */
-    getTokenSilently(o) {
-        return this.client.getTokenSilently(o);
-    },
-    /** Gets the access token using a popup window */
-    getTokenWithPopup(o) {
-        return this.client.getTokenWithPopup(o);
-    },
-    /** Logs the user out and removes their session on the authorization server */
     logout(o) {
         return this.client.logout(o);
+    },
+    async setCookieSession(token = null) {
+        const sessionToken = token || (await this.client.getTokenSilently());
+        window.vm.config.globalProperties.$cookie.setCookie('session', sessionToken);
+    },
+    redirectAfterSignIn() {
+        wwLib.goTo(this.settings.publicData.afterSignInPageId);
     },
 };
