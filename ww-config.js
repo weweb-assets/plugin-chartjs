@@ -35,6 +35,6 @@ module.exports = {
                 },
             },
         ],
-        designSystemId: '4978681d-6d09-49c7-bdaa-6a6d1e2ce180',
+        designSystemId: 'ec2eebfe-499b-43c4-b260-80ee5a4d9504',
     },
 };
