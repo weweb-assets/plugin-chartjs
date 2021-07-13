@@ -93,7 +93,13 @@ export default {
         }
     },
     loginWithRedirect(o) {
+        /* wwFront:start */
         return this.client.loginWithRedirect(o);
+        /* wwFront:end */
+        /* wwEditor:start */
+        // eslint-disable-next-line no-unreachable
+        return this.loginWithPopup(o);
+        /* wwEditor:end */
     },
     logout(o) {
         return this.client.logout(o);
