@@ -46,12 +46,23 @@ export default {
         const { domain, SPAClientId: client_id, afterSignInPageId } = this.settings.publicData;
         if (!domain || !client_id) return;
 
+        const website = wwLib.wwWebsiteData.getInfo();
         const page = wwLib.wwWebsiteData.getPages().find(page => page.id === afterSignInPageId);
-        const redirect_uri = page
-            ? `${window.location.origin}/${page.paths[wwLib.wwLang.lang] || page.paths.default}`
-            : window.location.origin;
-
+        const isHomePage = page && page.id === website.homePageId;
+        /* wwEditor:start */
+        const redirectUriEditor =
+            page && !isHomePage
+                ? `${window.location.origin}/${website.id}/${page.id}`
+                : `${window.location.origin}/${website.id}`;
+        this.client = await createAuth0Client({ domain, client_id, redirect_uri: redirectUriEditor });
+        /* wwEditor:end */
+        /* wwFront:start */
+        const redirect_uri =
+            page && !isHomePage
+                ? `${window.location.origin}/${page.paths[wwLib.wwLang.lang] || page.paths.default}`
+                : window.location.origin;
         this.client = await createAuth0Client({ domain, client_id, redirect_uri });
+        /* wwFront:end */
     },
     async checkRedirectCallback() {
         try {
