@@ -113,6 +113,12 @@ export default {
         window.vm.config.globalProperties.$cookie.setCookie('session', sessionToken);
     },
     redirectAfterSignIn() {
-        wwLib.goTo(this.settings.publicData.afterSignInPageId);
+        const website = wwLib.wwWebsiteData.getInfo();
+        const page = wwLib.wwWebsiteData
+            .getPages()
+            .find(page => page.id === this.settings.publicData.afterSignInPageId);
+        const isHomePage = page && page.id === website.homePageId;
+        const path = page && !isHomePage ? page.paths[wwLib.wwLang.lang] || page.paths.default : '/';
+        wwLib.goTo(path);
     },
 };
