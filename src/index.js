@@ -102,7 +102,11 @@ export default {
         /* wwEditor:end */
     },
     logout(o) {
+        this.removeCookieSession();
         return this.client.logout(o);
+    },
+    removeCookieSession() {
+        window.vm.config.globalProperties.$cookie.removeCookie('session');
     },
     async setCookieSession(token = null) {
         const sessionToken = token || (await this.client.getTokenSilently());
