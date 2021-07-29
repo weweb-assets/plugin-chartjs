@@ -57,7 +57,7 @@ export default {
             return this.getUrls(this.settings.publicData.afterNotSignInPageId);
         },
         origins() {
-            return `https://editor.weweb.io, https://${this.website.id}.weweb-preview.io`;
+            return `https://${this.website.id}.weweb-preview.io, https://editor.weweb.io`;
         },
     },
     methods: {
@@ -71,7 +71,7 @@ export default {
                     defaultLang.default && !defaultLang.isDefaultPath ? '' : `${lang}/`
                 }${isHomePageId ? '' : page.paths[lang] || page.paths.default}`;
             });
-            return [editorUrl, ...frontUrls].join(', ');
+            return [...frontUrls, editorUrl].join(', ');
         },
         copy(string) {
             navigator.clipboard.writeText(string).then(
