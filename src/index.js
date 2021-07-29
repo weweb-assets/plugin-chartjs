@@ -7,6 +7,7 @@ import './components/Redirections/SettingsEdit.vue';
 import './components/Redirections/SettingsSummary.vue';
 import './components/SinglePageApp/SettingsEdit.vue';
 import './components/SinglePageApp/SettingsSummary.vue';
+import './components/Auth0/SettingsSummary.vue';
 import { GET_AUTH0_ROLES } from './graphql';
 /* wwEditor:end */
 

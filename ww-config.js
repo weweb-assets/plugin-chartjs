@@ -34,6 +34,15 @@ module.exports = {
                     return !!afterSignInPageId && !!afterNotSignInPageId;
                 },
             },
+            {
+                label: 'Set-up Auth0 Application URIs',
+                icon: 'auth0',
+                edit: () => import('./src/components/Auth0/SettingsSummary.vue'),
+                summary: () => import('./src/components/Auth0/SettingsSummary.vue'),
+                getIsValid() {
+                    return true;
+                },
+            },
         ],
         designSystemId: 'ec2eebfe-499b-43c4-b260-80ee5a4d9504',
     },
