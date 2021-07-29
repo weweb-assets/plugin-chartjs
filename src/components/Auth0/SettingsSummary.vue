@@ -57,18 +57,18 @@ export default {
             return this.getUrls(this.settings.publicData.afterNotSignInPageId);
         },
         origins() {
-            return `https://editor.weweb-staging.io, https://${this.website.id}.weweb-preview.io`;
+            return `https://editor.weweb.io, https://${this.website.id}.weweb-preview.io`;
         },
     },
     methods: {
         getUrls(pageId) {
             const page = wwLib.wwWebsiteData.getPages().find(page => page.id === pageId);
             const isHomePageId = page.id === this.website.homePageId;
-            const editorUrl = `https://editor.weweb-staging.io/${this.website.id}/${isHomePageId ? '' : page.id}`;
+            const editorUrl = `https://editor.weweb.io/${this.website.id}/${isHomePageId ? '' : page.id}`;
             const frontUrls = page.langs.map(lang => {
                 const defaultLang = this.website.langs.find(websiteLang => websiteLang.lang === lang);
                 return `https://${this.website.id}.weweb-preview.io/${
-                    defaultLang.default && !defaultLang.isDefaultPath ? '/' : `${lang}/`
+                    defaultLang.default && !defaultLang.isDefaultPath ? '' : `${lang}/`
                 }${isHomePageId ? '' : page.paths[lang] || page.paths.default}`;
             });
             return [editorUrl, ...frontUrls].join(', ');
