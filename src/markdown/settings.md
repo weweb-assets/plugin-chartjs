@@ -1,3 +1,24 @@
-![https://s3.us-west-2.amazonaws.com/secure.notion-static.com/a7a294a1-34eb-483e-b849-21bb9560c3a4/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAT73L2G45O3KS52Y5%2F20210607%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20210607T134709Z&X-Amz-Expires=86400&X-Amz-Signature=73f19df95ac9fde14a356d0a4a7c2b0cb9372a4116107e17e83962a8f5f1e0b7&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/a7a294a1-34eb-483e-b849-21bb9560c3a4/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAT73L2G45O3KS52Y5%2F20210607%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20210607T134709Z&X-Amz-Expires=86400&X-Amz-Signature=73f19df95ac9fde14a356d0a4a7c2b0cb9372a4116107e17e83962a8f5f1e0b7&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22)
+To start setting-up Auth0 plugin, you need to follow these 4 steps: 
 
-To use the Airtable plugin, you must copy/paste your API key, which you can find <a href="https://airtable.com/account" target="_blank" class="ww-editor-link">on your account</a>.
+#1 - Create a single page application
+
+Once you logued in, go to Application > Create application.
+![https://github.com/weweb-assets/plugin-auth0/blob/main/src/markdown/images/01-create-application.png?raw=true](https://github.com/weweb-assets/plugin-airtable/blob/main/src/markdown/images/01-create-application.png?raw=true)
+
+Select Single Page Applications.
+![https://github.com/weweb-assets/plugin-airtable/blob/main/src/markdown/images/02-single-page-application.png?raw=true](https://github.com/weweb-assets/plugin-airtable/blob/main/src/markdown/images/02-single-page-application.png?raw=true)
+
+Copy & paste the the Domain, the Client Id and the Client Secret.
+![https://github.com/weweb-assets/plugin-airtable/blob/main/src/markdown/images/03-copy-credentials.png?raw=true](https://github.com/weweb-assets/plugin-airtable/blob/main/src/markdown/images/03-copy-credentials.png?raw=true)
+
+#2 - Create a machine to machine application
+
+Go to Application > Create application.
+
+Select Machine to Machine Applications.
+
+Copy & paste the the Domain, the Client Id and the Client Secret.
+
+#3 - Specify the login page 
+
+#4 - Allow your website and the editor to connect 
