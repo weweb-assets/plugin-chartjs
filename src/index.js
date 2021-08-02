@@ -47,10 +47,10 @@ export default {
         const { domain, SPAClientId: client_id, afterSignInPageId } = this.settings.publicData;
         if (!domain || !client_id) return;
 
+        /* wwEditor:start */
         const website = wwLib.wwWebsiteData.getInfo();
         const page = wwLib.wwWebsiteData.getPages().find(page => page.id === afterSignInPageId);
         const isHomePage = page && page.id === website.homePageId;
-        /* wwEditor:start */
         const redirectUriEditor =
             page && !isHomePage
                 ? `${window.location.origin}/${website.id}/${page.id}`
@@ -58,11 +58,12 @@ export default {
         this.client = await createAuth0Client({ domain, client_id, redirect_uri: redirectUriEditor });
         /* wwEditor:end */
         /* wwFront:start */
-        const redirect_uri =
-            page && !isHomePage
-                ? `${window.location.origin}/${page.paths[wwLib.wwLang.lang] || page.paths.default}`
-                : window.location.origin;
-        this.client = await createAuth0Client({ domain, client_id, redirect_uri });
+        const pagePath = wwLib.wwPageHelper.getPagePath(afterSignInPageId);
+        this.client = await createAuth0Client({
+            domain,
+            client_id,
+            redirect_uri: `${window.location.origin}/${pagePath}`,
+        });
         /* wwFront:end */
     },
     async checkRedirectCallback() {
@@ -102,9 +103,10 @@ export default {
         return this.loginWithPopup(o);
         /* wwEditor:end */
     },
-    logout(o) {
+    logout() {
         this.removeCookieSession();
-        return this.client.logout(o);
+        const pagePath = wwLib.wwPageHelper.getPagePath(this.settings.publicData.afterNotSignInPageId);
+        return this.client.logout({ returnTo: `${window.location.origin}/${pagePath}` });
     },
     removeCookieSession() {
         window.vm.config.globalProperties.$cookie.removeCookie('session');
@@ -114,12 +116,12 @@ export default {
         window.vm.config.globalProperties.$cookie.setCookie('session', sessionToken);
     },
     redirectAfterSignIn() {
-        const website = wwLib.wwWebsiteData.getInfo();
-        const page = wwLib.wwWebsiteData
-            .getPages()
-            .find(page => page.id === this.settings.publicData.afterSignInPageId);
-        const isHomePage = page && page.id === website.homePageId;
-        const path = page && !isHomePage ? page.paths[wwLib.wwLang.lang] || page.paths.default : '/';
-        wwLib.goTo(path);
+        /* wwFront:start */
+        const pagePath = wwLib.wwPageHelper.getPagePath(this.settings.publicData.afterSignInPageId);
+        wwLib.goTo(pagePath);
+        /* wwFront:end */
+        /* wwEditor:start */
+        wwLib.goTo(this.settings.publicData.afterSignInPageId);
+        /* wwEditor:end */
     },
 };

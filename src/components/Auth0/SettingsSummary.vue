@@ -65,12 +65,9 @@ export default {
             const page = wwLib.wwWebsiteData.getPages().find(page => page.id === pageId);
             const isHomePageId = page.id === this.website.homePageId;
             const editorUrl = `https://editor.weweb.io/${this.website.id}/${isHomePageId ? '' : page.id}`;
-            const frontUrls = page.langs.map(lang => {
-                const defaultLang = this.website.langs.find(websiteLang => websiteLang.lang === lang);
-                return `https://${this.website.id}.weweb-preview.io/${
-                    defaultLang.default && !defaultLang.isDefaultPath ? '' : `${lang}/`
-                }${isHomePageId ? '' : page.paths[lang] || page.paths.default}`;
-            });
+            const frontUrls = page.langs.map(
+                lang => `https://${this.website.id}.weweb-preview.io/${wwLib.wwPageHelper.getPagePath(page.id, lang)}`
+            );
             return [...frontUrls, editorUrl].join(', ');
         },
         copy(string) {
