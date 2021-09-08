@@ -118,7 +118,7 @@ export default {
     redirectAfterSignIn() {
         /* wwFront:start */
         const pagePath = wwLib.wwPageHelper.getPagePath(this.settings.publicData.afterSignInPageId);
-        wwLib.goTo(pagePath);
+        wwLib.goTo(`/${pagePath}`);
         /* wwFront:end */
         /* wwEditor:start */
         wwLib.goTo(this.settings.publicData.afterSignInPageId);
