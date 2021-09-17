@@ -46,4 +46,13 @@ module.exports = {
         ],
         designSystemId: 'ec2eebfe-499b-43c4-b260-80ee5a4d9504',
     },
+    variables: [
+        { name: 'user', value: 'user', type: 'object' },
+        { name: 'isAuthenticated', value: 'isAuthenticated', type: 'boolean' },
+    ],
+    functions: [
+        { name: 'Login with Popup', code: 'loginWithPopup', parameters: [] },
+        { name: 'Login with Redirect', code: 'loginWithRedirect', parameters: [] },
+        { name: 'Logout', code: 'logout', parameters: [] },
+    ],
 };
