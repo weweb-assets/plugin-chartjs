@@ -1,5 +1,4 @@
-module.exports = {
-    componentPath: './src/index.js',
+export default {
     editor: {
         settings: [
             {
