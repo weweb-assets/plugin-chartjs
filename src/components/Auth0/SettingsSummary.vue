@@ -57,16 +57,19 @@ export default {
             return this.getUrls(this.settings.publicData.afterNotSignInPageId);
         },
         origins() {
-            return `https://${this.website.id}.weweb-preview.io, https://editor.weweb.io`;
+            return `https://${this.website.id}.${wwLib.wwApiRequests._getPreviewUrl()}, ${window.location.origin}`;
         },
     },
     methods: {
         getUrls(pageId) {
             const page = wwLib.wwWebsiteData.getPages().find(page => page.id === pageId);
             const isHomePageId = page.id === this.website.homePageId;
-            const editorUrl = `https://editor.weweb.io/${this.website.id}/${isHomePageId ? '' : page.id}`;
+            const editorUrl = `${window.location.origin}/${this.website.id}/${isHomePageId ? '' : page.id}`;
             const frontUrls = page.langs.map(
-                lang => `https://${this.website.id}.weweb-preview.io/${wwLib.wwPageHelper.getPagePath(page.id, lang)}`
+                lang =>
+                    `https://${
+                        this.website.id
+                    }.${wwLib.wwApiRequests._getPreviewUrl()}/${wwLib.wwPageHelper.getPagePath(page.id, lang)}`
             );
             return [...frontUrls, editorUrl].join(', ');
         },
