@@ -103,10 +103,11 @@ export default {
         align-items: center;
     }
     &__url {
-        color: var(--ww-color-dark-500);
-        background-color: var(--ww-color-dark-200);
+        color: var(--ww-color-theme-dark-700);
+        background-color: var(--ww-color-theme-dark-50);
+        border: 1px solid var(--ww-color-theme-dark-100);
         padding: var(--ww-spacing-01) var(--ww-spacing-02);
-        border-radius: var(--ww-border-radius-01);
+        border-radius: var(--ww-border-radius-02);
     }
 }
 .m-left {
