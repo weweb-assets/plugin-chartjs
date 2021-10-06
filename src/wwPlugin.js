@@ -62,7 +62,7 @@ export default {
         this.client = await createAuth0Client({
             domain,
             client_id,
-            redirect_uri: `${window.location.origin}/${pagePath}`,
+            redirect_uri: `${window.location.origin}${pagePath}`,
         });
         /* wwFront:end */
     },
@@ -106,7 +106,7 @@ export default {
     logout() {
         this.removeCookieSession();
         const pagePath = wwLib.wwPageHelper.getPagePath(this.settings.publicData.afterNotSignInPageId);
-        return this.client.logout({ returnTo: `${window.location.origin}/${pagePath}` });
+        return this.client.logout({ returnTo: `${window.location.origin}${pagePath}` });
     },
     removeCookieSession() {
         window.vm.config.globalProperties.$cookie.removeCookie('session');
@@ -118,7 +118,7 @@ export default {
     redirectAfterSignIn() {
         /* wwFront:start */
         const pagePath = wwLib.wwPageHelper.getPagePath(this.settings.publicData.afterSignInPageId);
-        wwLib.goTo(`/${pagePath}`);
+        wwLib.goTo(pagePath);
         /* wwFront:end */
         /* wwEditor:start */
         wwLib.goTo(this.settings.publicData.afterSignInPageId);

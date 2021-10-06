@@ -67,9 +67,10 @@ export default {
             const editorUrl = `${window.location.origin}/${this.website.id}/${isHomePageId ? '' : page.id}`;
             const frontUrls = page.langs.map(
                 lang =>
-                    `https://${
-                        this.website.id
-                    }.${wwLib.wwApiRequests._getPreviewUrl()}/${wwLib.wwPageHelper.getPagePath(page.id, lang)}`
+                    `https://${this.website.id}.${wwLib.wwApiRequests._getPreviewUrl()}${wwLib.wwPageHelper.getPagePath(
+                        page.id,
+                        lang
+                    )}`
             );
             return [...frontUrls, editorUrl].join(', ');
         },
