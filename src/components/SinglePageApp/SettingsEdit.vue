@@ -6,7 +6,7 @@
                     Find it here
                 </a>
             </template>
-            <wwEditorFormInput
+            <wwEditorInputText
                 type="text"
                 name="domain"
                 placeholder="project-name.auth0.com"
@@ -25,7 +25,7 @@
                     Find it here
                 </a>
             </template>
-            <wwEditorFormInput
+            <wwEditorInputText
                 type="text"
                 name="client-id"
                 placeholder=""
@@ -35,7 +35,7 @@
             />
         </wwEditorFormRow>
         <wwEditorFormRow required label="Client Secret">
-            <wwEditorFormInput
+            <wwEditorInputText
                 type="text"
                 placeholder="**************"
                 name="client Secret"
@@ -46,7 +46,7 @@
             />
         </wwEditorFormRow>
         <div class="auth0-settings-edit__row">
-            <wwManagerRadio v-model:isKeyVisible="isKeyVisible" />
+            <wwEditorInputSwitch v-model="isKeyVisible" />
             <span class="auth0-settings-edit__radio-label caption-m">Show client secret</span>
         </div>
     </div>

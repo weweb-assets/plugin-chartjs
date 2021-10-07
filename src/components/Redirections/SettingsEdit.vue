@@ -1,7 +1,7 @@
 <template>
     <div class="auth0-settings-edit">
         <wwEditorFormRow required label="Page to redirect after the user signed-in">
-            <wwEditorSelect
+            <wwEditorInputTextSelect
                 name="after-sign-in-page-id"
                 :options="pagesOptions"
                 :model-value="settings.publicData.afterSignInPageId"
@@ -11,7 +11,7 @@
             />
         </wwEditorFormRow>
         <wwEditorFormRow required label="Page to redirect when user is not signed-in">
-            <wwEditorSelect
+            <wwEditorInputTextSelect
                 name="after-not-sign-in-page-id"
                 :options="pagesOptions"
                 :model-value="settings.publicData.afterNotSignInPageId"

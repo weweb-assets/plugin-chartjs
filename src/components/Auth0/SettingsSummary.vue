@@ -57,16 +57,20 @@ export default {
             return this.getUrls(this.settings.publicData.afterNotSignInPageId);
         },
         origins() {
-            return `https://${this.website.id}.weweb-preview.io, https://editor.weweb.io`;
+            return `https://${this.website.id}.${wwLib.wwApiRequests._getPreviewUrl()}, ${window.location.origin}`;
         },
     },
     methods: {
         getUrls(pageId) {
             const page = wwLib.wwWebsiteData.getPages().find(page => page.id === pageId);
             const isHomePageId = page.id === this.website.homePageId;
-            const editorUrl = `https://editor.weweb.io/${this.website.id}/${isHomePageId ? '' : page.id}`;
+            const editorUrl = `${window.location.origin}/${this.website.id}/${isHomePageId ? '' : page.id}`;
             const frontUrls = page.langs.map(
-                lang => `https://${this.website.id}.weweb-preview.io/${wwLib.wwPageHelper.getPagePath(page.id, lang)}`
+                lang =>
+                    `https://${this.website.id}.${wwLib.wwApiRequests._getPreviewUrl()}${wwLib.wwPageHelper.getPagePath(
+                        page.id,
+                        lang
+                    )}`
             );
             return [...frontUrls, editorUrl].join(', ');
         },
@@ -103,10 +107,11 @@ export default {
         align-items: center;
     }
     &__url {
-        color: var(--ww-color-dark-500);
-        background-color: var(--ww-color-dark-200);
+        color: var(--ww-color-theme-dark-700);
+        background-color: var(--ww-color-theme-dark-50);
+        border: 1px solid var(--ww-color-theme-dark-100);
         padding: var(--ww-spacing-01) var(--ww-spacing-02);
-        border-radius: var(--ww-border-radius-01);
+        border-radius: var(--ww-border-radius-02);
     }
 }
 .m-left {
