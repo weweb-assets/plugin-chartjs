@@ -1,8 +1,8 @@
 {
-    "name": "plugin-auth0",
+    "name": "plugin-chartjs",
     "repository": {
         "type": "git",
-        "url": "https://github.com/weweb-assets/plugin-auth0"
+        "url": "https://github.com/weweb-assets/plugin-chartjs"
     },
     "version": "3.1.0",
     "license": "MIT",
@@ -10,11 +10,7 @@
         "build": "weweb build",
         "serve": "weweb serve"
     },
-    "dependencies": {
-        "@auth0/auth0-spa-js": "^1.15.0",
-        "graphql": "^15.5.0",
-        "graphql-tag": "^2.11.0"
-    },
+    "dependencies": {},
     "devDependencies": {
         "@vue/eslint-config-prettier": "^6.0.0",
         "@weweb/cli": "github:weweb-team/weweb-cli#webapp",
