@@ -1,16 +1,18 @@
+# Chart.js API
+
 Depending on the Chart.js element you use, it expects certain parameters:
 
 ## Bar
 
 To be displayed correctly, the bar chart needs two types of data. **Labels** and **datasets**
 
-The **labels** must be defined in an [array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array) like this:
+The **labels** must be defined in an <span style="text-decoration: underline;">[array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)</span> like this:
 
 ```js
 labels: ['Tatooine', 'Coruscant', 'Kashyyyk', 'Dagobah', 'Bespin', 'Endor', 'Hoth'];
 ```
 
-The **datasets** are represented as [objects](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object), too, in an array:
+The **datasets** are represented as <span style="text-decoration: underline;">[objects](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)</span> too, in an array:
 
 ```js
 [
@@ -27,7 +29,7 @@ The **datasets** are represented as [objects](https://developer.mozilla.org/en-U
 ];
 ```
 
-> Make sure that the number of labels corresponds to the number of values in the data property of the dataset.
+**Make sure that the number of labels corresponds to the number of values in the data property of the dataset.**
 
 In the example above, we can see the minimum properties required for the dataset to be displayed correctly.
 
