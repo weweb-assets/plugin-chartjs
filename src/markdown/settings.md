@@ -4,7 +4,7 @@ Depending on the Chart.js element you use, it expects certain parameters:
 
 ## Bar
 
-To be displayed correctly, the bar chart needs two types of data. **Labels** and **datasets**
+To be displayed correctly, the bar chart needs two types of data. **Labels** and **datasets.**
 
 The **labels** must be defined in an <span style="text-decoration: underline;">[array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)</span> like this:
 
