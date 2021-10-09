@@ -12,7 +12,7 @@ The **labels** must be defined in an <span style="text-decoration: underline;">[
 labels: ['Tatooine', 'Coruscant', 'Kashyyyk', 'Dagobah', 'Bespin', 'Endor', 'Hoth'];
 ```
 
-The **datasets** are represented as <span style="text-decoration: underline;">[objects](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)</span> too, in an array:
+The **datasets** are represented as <span style="text-decoration: underline;">[objects](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)</span>, also, in an array:
 
 ```js
 [
