@@ -1,24 +1,45 @@
-To start setting-up Auth0 plugin, you need to follow these 4 steps:
+Depending on the Chart.js element you use, it expects certain parameters:
 
-#1 - Create a single page application
+## Bar
 
-Once you logued in, go to Application > Create application.
-![https://github.com/weweb-assets/plugin-chartjs/blob/main/src/markdown/images/01-create-application.png?raw=true](https://github.com/weweb-assets/plugin-chartjs/blob/main/src/markdown/images/01-create-application.png?raw=true)
+To be displayed correctly, the bar chart needs two types of data. **Labels** and **datasets**
 
-Select Single Page Applications.
-![https://github.com/weweb-assets/plugin-chartjs/blob/main/src/markdown/images/02-single-page-application.png?raw=true](https://github.com/weweb-assets/plugin-chartjs/blob/main/src/markdown/images/02-single-page-application.png?raw=true)
+The **labels** must be defined in an [array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array) like this:
 
-Copy & paste the the Domain, the Client Id and the Client Secret.
-![https://github.com/weweb-assets/plugin-chartjs/blob/main/src/markdown/images/03-copy-credentials.png?raw=true](https://github.com/weweb-assets/plugin-chartjs/blob/main/src/markdown/images/03-copy-credentials.png?raw=true)
+```js
+labels: ['Tatooine', 'Coruscant', 'Kashyyyk', 'Dagobah', 'Bespin', 'Endor', 'Hoth'];
+```
 
-#2 - Create a machine to machine application
+The **datasets** are represented as [objects](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object), too, in an array:
 
-Go to Application > Create application.
+```js
+[
+    {
+        label: 'Millenium Falcon',
+        backgroundColor: 'rgb(255, 99, 132)',
+        data: [100.0, 5.0, 2.0, 20.0, 30.0, 10.0, 45.0],
+    },
+    {
+        label: 'TIE Fighter',
+        backgroundColor: '#F7AB49',
+        data: [26, 42, 35, 48, 52, 24, 75],
+    },
+];
+```
 
-Select Machine to Machine Applications.
+> Make sure that the number of labels corresponds to the number of values in the data property of the dataset.
 
-Copy & paste the the Domain, the Client Id and the Client Secret.
+In the example above, we can see the minimum properties required for the dataset to be displayed correctly.
 
-#3 - Specify the login page
+However, the bar chart has other properties that allow you to customize its display:
 
-#4 - Allow your website and the editor to connect
+-   **backgroundColor** : `Color` (white, #FFFFFF, rgb(255, 255, 255))
+-   **borderColor**: `Color`
+-   **borderRadius**: `number` | `BorderRadius`
+    -   `BorderRadius`:
+        -   **bottomLeft**: `number`
+        -   **bottomRight**: `number`
+        -   **topLeft**: `number`
+        -   **topRight**: `number`
+-   **borderSkipped**: `false` | `"start"` | `"end"` | `"left"` | `"right"` | `"bottom"` | `"top"`
+-   **borderWidth**: `number`
